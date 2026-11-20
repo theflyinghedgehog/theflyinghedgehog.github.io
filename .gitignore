@@ -1,0 +1,11 @@
+/*
+!/.gitignore
+!/index.html
+!/favicon.svg
+!/README.md
+!/css/
+!/js/
+
+.DS_Store
+*.swp
+*~

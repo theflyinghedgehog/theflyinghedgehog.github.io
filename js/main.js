@@ -94,7 +94,7 @@
   function pickRepos(repos) {
     const hidden = new Set((SITE.hideRepos || []).map((n) => n.toLowerCase()));
     const usable = repos.filter((r) =>
-      !r.fork && !r.archived && !r.private &&
+      !r.archived && !r.private &&
       r.name.toLowerCase() !== SITE.github.toLowerCase() &&
       !hidden.has(r.name.toLowerCase())
     );

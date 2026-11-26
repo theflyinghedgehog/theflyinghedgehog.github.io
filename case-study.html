@@ -35,7 +35,13 @@
         </svg>
         <span class="topbar-user-name"><b>matte</b>@arch</span>
       </a>
-      <a class="study-back module" href="index.html#case-studies">cd ../case-studies</a>
+      <div class="topbar-right">
+        <div class="lang-toggle module" role="group" aria-label="Language">
+          <button type="button" data-lang="it" aria-pressed="false" lang="it">IT</button>
+          <button type="button" data-lang="en" aria-pressed="true" lang="en">EN</button>
+        </div>
+        <a class="study-back module" href="index.html#case-studies">cd ../case-studies</a>
+      </div>
     </div>
   </nav>
 
@@ -49,11 +55,12 @@
 
   <footer class="footer">
     <div class="container">
-      <span>© <span id="year"></span> Matteo Babini · built in Neovim on Arch</span>
+      <span>© <span id="year"></span> Matteo Babini · <span data-i18n="footer.built">built in Neovim on Arch</span></span>
     </div>
   </footer>
 
   <script src="js/projects.js"></script>
+  <script src="js/i18n.js"></script>
   <script src="js/cases.js"></script>
   <script src="js/case-study.js"></script>
 </body>

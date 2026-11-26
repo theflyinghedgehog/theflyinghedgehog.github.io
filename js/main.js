@@ -1,5 +1,6 @@
 (function () {
   const githubUrl = `https://github.com/${SITE.github}`;
+  const { t, L } = window.I18N;
 
   function escapeHtml(text) {
     return String(text).replace(/[&<>"]/g, (char) => ({
@@ -39,7 +40,7 @@
 
   function renderInventory() {
     document.getElementById("inventory").innerHTML = SITE.skills
-      .map((skill) => `<li><b>${escapeHtml(skill)}</b><small>equipped</small></li>`)
+      .map((skill) => `<li><b>${escapeHtml(skill)}</b><small>${escapeHtml(t("skill.equipped"))}</small></li>`)
       .join("");
   }
 
@@ -66,13 +67,13 @@
 
   function timeAgo(iso) {
     const days = Math.floor((Date.now() - new Date(iso)) / 86400000);
-    if (days < 1) return "today";
-    if (days === 1) return "yesterday";
-    if (days < 30) return `${days} days ago`;
+    if (days < 1) return t("time.today");
+    if (days === 1) return t("time.yesterday");
+    if (days < 30) return t("time.days", { n: days });
     const months = Math.floor(days / 30);
-    if (months < 12) return months === 1 ? "a month ago" : `${months} months ago`;
+    if (months < 12) return months === 1 ? t("time.month") : t("time.months", { n: months });
     const years = Math.floor(months / 12);
-    return years === 1 ? "a year ago" : `${years} years ago`;
+    return years === 1 ? t("time.year") : t("time.years", { n: years });
   }
 
   function fromRepo(repo) {
@@ -80,9 +81,9 @@
     const topics = (repo.topics || []).filter((t) => t !== "portfolio");
     return {
       repo: repo.name,
-      name: note.name || prettyName(repo.name),
-      what: note.what || repo.description || "No description yet.",
-      why: note.why || "",
+      name: L(note.name) || prettyName(repo.name),
+      what: L(note.what) || repo.description || t("project.noDescription"),
+      why: L(note.why) || "",
       stack: note.stack || (topics.length ? topics : [repo.language].filter(Boolean)),
       language: repo.language,
       stars: repo.stargazers_count,
@@ -136,10 +137,10 @@
       : "";
     const meta = [
       project.stars ? `★ ${project.stars}` : "",
-      project.updated ? `updated ${timeAgo(project.updated)}` : "",
+      project.updated ? t("project.updated", { when: timeAgo(project.updated) }) : "",
     ].filter(Boolean).join(" · ");
     const live = project.homepage
-      ? `<a class="repo-link" href="${escapeHtml(project.homepage)}" target="_blank" rel="noopener">Live site</a>`
+      ? `<a class="repo-link" href="${escapeHtml(project.homepage)}" target="_blank" rel="noopener">${escapeHtml(t("project.live"))}</a>`
       : "";
 
     return `
@@ -155,7 +156,7 @@
           ${tags ? `<ul class="tags">${tags}</ul>` : ""}
           ${meta ? `<p class="project-meta">${meta}</p>` : ""}
           <div class="project-links">
-            <a class="repo-link" href="${githubUrl}/${encodeURIComponent(project.repo)}" target="_blank" rel="noopener">View code</a>
+            <a class="repo-link" href="${githubUrl}/${encodeURIComponent(project.repo)}" target="_blank" rel="noopener">${escapeHtml(t("project.viewCode"))}</a>
             ${live}
           </div>
         </div>
@@ -166,7 +167,7 @@
     grid.removeAttribute("aria-busy");
     grid.innerHTML = projects.length
       ? projects.map(projectCard).join("")
-      : `<p class="empty-state">No public repositories yet.</p>`;
+      : `<p class="empty-state">${escapeHtml(t("project.empty"))}</p>`;
 
     grid.querySelectorAll(".project-card").forEach((card, i) => card.style.setProperty("--i", i));
     grid.scrollLeft = 0;
@@ -182,16 +183,28 @@
       </article>`).join("");
   }
 
+  let pickedRepos = null;
+
+  function buildProjects() {
+    const projects = (pickedRepos || []).map(fromRepo);
+    if (projects.length) return projects;
+    return SITE.projects.filter((p) => p.repo).map((p) => ({
+      ...p,
+      name: L(p.name),
+      what: L(p.what),
+      why: L(p.why) || "",
+      stack: p.stack || [],
+    }));
+  }
+
   async function loadProjects() {
     renderSkeletons();
-    let projects = [];
     try {
-      projects = pickRepos(await fetchRepos()).map(fromRepo);
+      pickedRepos = pickRepos(await fetchRepos());
     } catch (error) {
+      pickedRepos = [];
     }
-    if (!projects.length) {
-      projects = SITE.projects.filter((p) => p.repo).map((p) => ({ ...p, stack: p.stack || [] }));
-    }
+    const projects = buildProjects();
     renderProjects(projects);
     renderGithub(projects);
   }
@@ -206,7 +219,7 @@
 
     const cardWidth = cards[0].offsetWidth + 14;
     const current = Math.min(cards.length, Math.round(grid.scrollLeft / cardWidth) + 1);
-    swipeHint.textContent = `${current} of ${cards.length} · swipe for more`;
+    swipeHint.textContent = t("swipe", { current, total: cards.length });
   }
 
   grid.addEventListener("scroll", () => requestAnimationFrame(updateSwipeHint), { passive: true });
@@ -229,11 +242,11 @@
     const button = event.currentTarget;
     try {
       await navigator.clipboard.writeText(document.getElementById("clone-command").textContent.trim());
-      button.textContent = "Copied";
+      button.textContent = t("copy.done");
     } catch (error) {
-      button.textContent = "Select it";
+      button.textContent = t("copy.fail");
     }
-    setTimeout(() => (button.textContent = "Copy"), 1600);
+    setTimeout(() => (button.textContent = t("btn.copy")), 1600);
   });
 
   function startClock() {
@@ -318,6 +331,12 @@
       observer.observe(el);
     });
   }
+
+  document.addEventListener("langchange", () => {
+    renderInventory();
+    setStagger(document.getElementById("inventory"));
+    if (pickedRepos) renderProjects(buildProjects());
+  });
 
   drawLaptopKeys();
   fillLinks();

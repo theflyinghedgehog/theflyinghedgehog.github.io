@@ -1524,3 +1524,48 @@ h1, h2, h3 {
     width: min(100%, 375px);
   }
 }
+
+
+.lang-toggle {
+  gap: 2px;
+  padding: 3px;
+}
+
+.lang-toggle button {
+  min-width: 34px;
+  min-height: 28px;
+  padding: 0 8px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--screen-dim);
+  font: 600 13px/1 var(--font-mono);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.lang-toggle button:hover {
+  background: rgba(198, 208, 245, 0.08);
+  color: var(--screen-text);
+}
+
+.lang-toggle button[aria-pressed="true"] {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+.study-page .topbar-right {
+  margin-left: auto;
+}
+
+.study-page .study-back {
+  margin-left: 0;
+}
+
+@media (max-width: 600px) {
+  .lang-toggle button {
+    min-width: 30px;
+    min-height: 34px;
+    padding: 0 6px;
+  }
+}

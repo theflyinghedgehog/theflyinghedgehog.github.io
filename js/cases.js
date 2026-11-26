@@ -1,7 +1,9 @@
 (function () {
   const local = ["localhost", "127.0.0.1"].includes(location.hostname);
   const base = local ? "case-studies/" : SITE.caseStudies;
+  const { t, L } = window.I18N;
   let pending = null;
+  let loaded = null;
 
   function escapeHtml(text) {
     return String(text).replace(/[&<>"]/g, (char) => ({
@@ -37,7 +39,7 @@
   }
 
   function card(study) {
-    const tags = (study.tags || []).map((tag) => `<li>${escapeHtml(tag)}</li>`).join("");
+    const tags = (L(study.tags) || []).map((tag) => `<li>${escapeHtml(tag)}</li>`).join("");
     const cover = study.card
       ? `<a class="case-card-cover" href="${studyUrl(study)}" tabindex="-1" aria-hidden="true">
            <img src="${asset(study, study.card.file)}" alt="" width="${study.card.width}" height="${study.card.height}" loading="lazy" decoding="async">
@@ -48,21 +50,29 @@
       <article class="project-card case-card">
         <div class="project-card-tab">
           <code>~/case-studies/${escapeHtml(study.id)}/</code>
-          ${study.concept ? `<span class="lang"><i style="background:var(--ctp-peach)"></i>concept</span>` : ""}
+          ${study.concept ? `<span class="lang"><i style="background:var(--ctp-peach)"></i>${escapeHtml(t("cases.concept"))}</span>` : ""}
         </div>
         <div class="case-card-main">
           ${cover}
           <div class="project-card-body">
-            <p class="case-kind">${escapeHtml(study.kind || "")}</p>
-            <h3>${escapeHtml(study.title)}</h3>
-            <p>${escapeHtml(study.summary || "")}</p>
+            <p class="case-kind">${escapeHtml(L(study.kind) || "")}</p>
+            <h3>${escapeHtml(L(study.title))}</h3>
+            <p>${escapeHtml(L(study.summary) || "")}</p>
             ${tags ? `<ul class="tags">${tags}</ul>` : ""}
             <div class="project-links">
-              <a class="repo-link" href="${studyUrl(study)}">Read the case study →</a>
+              <a class="repo-link" href="${studyUrl(study)}">${escapeHtml(t("cases.read"))}</a>
             </div>
           </div>
         </div>
       </article>`;
+  }
+
+  function paint(grid) {
+    grid.removeAttribute("aria-busy");
+    grid.innerHTML = loaded && loaded.length
+      ? loaded.map(card).join("")
+      : `<p class="empty-state">${escapeHtml(t("cases.empty"))}</p>`;
+    grid.querySelectorAll(".project-card").forEach((el, i) => el.style.setProperty("--i", i));
   }
 
   async function renderGrid() {
@@ -76,17 +86,14 @@
         <div class="project-card-body"><i></i><i></i><i></i><i></i></div>
       </article>`;
 
-    let studies = [];
     try {
-      studies = await load();
+      loaded = await load();
     } catch (error) {
+      loaded = [];
     }
+    paint(grid);
 
-    grid.removeAttribute("aria-busy");
-    grid.innerHTML = studies.length
-      ? studies.map(card).join("")
-      : `<p class="empty-state">The case studies couldn't load right now. Try again in a minute.</p>`;
-    grid.querySelectorAll(".project-card").forEach((el, i) => el.style.setProperty("--i", i));
+    document.addEventListener("langchange", () => paint(grid));
   }
 
   window.CaseStudies = { load, asset, escapeHtml };

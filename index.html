@@ -17,7 +17,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;600&display=swap">
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body data-i18n-title="meta.title">
   <canvas class="bg-code" id="bg-code" aria-hidden="true"></canvas>
 
   <nav class="topbar" aria-label="Sections">
@@ -70,6 +70,10 @@
       </div>
 
       <div class="topbar-right">
+        <div class="lang-toggle module" role="group" aria-label="Language">
+          <button type="button" data-lang="it" aria-pressed="false" lang="it">IT</button>
+          <button type="button" data-lang="en" aria-pressed="true" lang="en">EN</button>
+        </div>
         <div class="status-modules module" aria-hidden="true">
           <span class="stat" title="CPU">
             <svg viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="1.5"/><path d="M9 3v3M15 3v3M9 18v3M15 18v3M3 9h3M3 15h3M18 9h3M18 15h3"/></svg>
@@ -92,13 +96,13 @@
     <div class="container screen hero">
       <p class="prompt"><span>~</span> $ <span id="typed-command"></span><i class="cursor" aria-hidden="true"></i></p>
       <h1>Matteo Babini</h1>
-      <p class="intro">
+      <p class="intro" data-i18n="hero.intro">
         I'm a self-taught developer and designer in Italy. I design and build
         web and mobile apps, from the first sketch to working code.
       </p>
 
       <div class="hero-content">
-        <div class="laptop-3d" id="laptop-3d" role="img" aria-label="A laptop slowly turning, with code being typed on its screen">
+        <div class="laptop-3d" id="laptop-3d" role="img" aria-label="A laptop slowly turning, with code being typed on its screen" data-i18n-attr="aria-label:hero.laptop">
         <svg class="laptop-sprite" viewBox="0 0 20 16" role="img" aria-label="Pixel-art ThinkPad showing a terminal prompt">
           <rect x="2" y="15" width="16" height="1" fill="#000" opacity=".35"/>
           <rect x="3" y="0" width="14" height="10" fill="#292c3c"/>
@@ -127,10 +131,10 @@
             <dt>OS</dt>       <dd>Arch Linux</dd>
             <dt>Desktop</dt>  <dd>Hyprland + Serpantinum</dd>
             <dt>Editor</dt>   <dd>Neovim (lazy.nvim)</dd>
-            <dt>Machine</dt>  <dd>ThinkPad T470</dd>
-            <dt>Role</dt>     <dd>Developer + designer</dd>
-            <dt>Builds</dt>   <dd>Web and mobile apps</dd>
-            <dt>Based in</dt> <dd>Italy</dd>
+            <dt data-i18n="neo.machine">Machine</dt>  <dd>ThinkPad T470</dd>
+            <dt data-i18n="neo.role">Role</dt>     <dd data-i18n="neo.roleValue">Developer + designer</dd>
+            <dt data-i18n="neo.builds">Builds</dt>   <dd data-i18n="neo.buildsValue">Web and mobile apps</dd>
+            <dt data-i18n="neo.based">Based in</dt> <dd data-i18n="neo.basedValue">Italy</dd>
           </dl>
           <div class="color-blocks" aria-hidden="true">
             <i style="background:#e78284"></i>
@@ -142,7 +146,7 @@
           </div>
 
           <div class="buttons">
-            <a class="btn btn-primary" href="#projects"><kbd>A</kbd>Projects</a>
+            <a class="btn btn-primary" href="#projects" data-i18n="btn.projects"><kbd>A</kbd>Projects</a>
             <a class="btn btn-secondary js-github-link" href="#" target="_blank" rel="noopener"><kbd>B</kbd>GitHub</a>
           </div>
         </div>
@@ -154,27 +158,27 @@
     <div class="container">
       <div class="section-head">
         <div>
-          <h2>About</h2>
-          <p>Who I am and what I work with.</p>
+          <h2 data-i18n="about.title">About</h2>
+          <p data-i18n="about.lead">Who I am and what I work with.</p>
         </div>
       </div>
 
       <div class="screen about">
         <div class="about-text">
           <p class="prompt"><span>~</span> $ cat about.txt</p>
-          <p>
+          <p data-i18n="about.p1">
             I'm self-taught: everything I know, I picked up by building real projects.
             Most of them start the same way: something doesn't work the way it should,
             so I build a better version.
           </p>
-          <p>
+          <p data-i18n="about.p2">
             I work across the stack, from React and Vue front ends to Python and SQL
             on the back end, and React Native when an app needs to live on a phone.
           </p>
-          <p>My daily setup is Arch Linux with Hyprland and Neovim on a ThinkPad I keep upgrading myself.</p>
+          <p data-i18n="about.p3">My daily setup is Arch Linux with Hyprland and Neovim on a ThinkPad I keep upgrading myself.</p>
 
           <p class="prompt prompt-spaced"><span>~</span> $ cat design.txt</p>
-          <p>
+          <p data-i18n="about.p4">
             I'm a designer as well as a developer. I work out the layout, the interface
             and the look before I write code, so what I design is what actually ships.
             You get one person who handles both.
@@ -193,8 +197,8 @@
     <div class="container">
       <div class="section-head">
         <div>
-          <h2>Case studies</h2>
-          <p>Concepts I designed for the kind of local businesses I want to work with.</p>
+          <h2 data-i18n="cases.title">Case studies</h2>
+          <p data-i18n="cases.lead">Concepts I designed for the kind of local businesses I want to work with.</p>
         </div>
       </div>
 
@@ -206,8 +210,8 @@
     <div class="container">
       <div class="section-head">
         <div>
-          <h2>Projects</h2>
-          <p>Pulled live from my GitHub, most recently worked on first.</p>
+          <h2 data-i18n="projects.title">Projects</h2>
+          <p data-i18n="projects.lead">Pulled live from my GitHub, most recently worked on first.</p>
         </div>
       </div>
 
@@ -220,17 +224,17 @@
     <div class="container screen github">
       <div>
         <p class="prompt"><span>~</span> $ git remote -v</p>
-        <h2>All the code is on GitHub</h2>
-        <p>
+        <h2 data-i18n="github.title">All the code is on GitHub</h2>
+        <p data-i18n="github.lead">
           Every project above has its own repository with a README covering what it
           does and how to run it. Commits show how each one got built, mistakes included.
         </p>
         <div class="buttons buttons-tight">
-          <a class="btn btn-primary js-github-link" href="#" target="_blank" rel="noopener"><kbd>A</kbd>Open my GitHub</a>
+          <a class="btn btn-primary js-github-link" href="#" target="_blank" rel="noopener" data-i18n="btn.openGithub"><kbd>A</kbd>Open my GitHub</a>
         </div>
         <div class="clone-box">
           <code id="clone-command">git clone https://github.com/theflyinghedgehog/theflyinghedgehog.github.io.git</code>
-          <button type="button" id="copy-button">Copy</button>
+          <button type="button" id="copy-button" data-i18n="btn.copy">Copy</button>
         </div>
       </div>
 
@@ -241,12 +245,12 @@
   <section class="section" id="contact">
     <div class="container screen contact">
       <p class="prompt"><span>~</span> $ ./contact --continue</p>
-      <h2>Continue? <span class="countdown" id="countdown" aria-hidden="true">9</span></h2>
-      <p>Have a website or app in mind? I can design it and build it. Email is the fastest way to reach me.</p>
+      <h2 data-i18n="contact.title">Continue? <span class="countdown" id="countdown" aria-hidden="true">9</span></h2>
+      <p data-i18n="contact.lead">Have a website or app in mind? I can design it and build it. Email is the fastest way to reach me.</p>
       <div class="buttons">
-        <a class="btn btn-primary" id="email-link" href="#"><kbd>A</kbd>Email me</a>
+        <a class="btn btn-primary" id="email-link" href="#" data-i18n="btn.email"><kbd>A</kbd>Email me</a>
         <a class="btn btn-secondary js-github-link" href="#" target="_blank" rel="noopener"><kbd>B</kbd>GitHub</a>
-        <button type="button" class="btn btn-reset" id="countdown-reset" hidden><kbd>↺</kbd>Reset</button>
+        <button type="button" class="btn btn-reset" id="countdown-reset" hidden data-i18n="btn.reset"><kbd>↺</kbd>Reset</button>
       </div>
       <p class="contact-details" id="contact-details"></p>
     </div>
@@ -254,11 +258,12 @@
 
   <footer class="footer">
     <div class="container">
-      <span>© <span id="year"></span> Matteo Babini · built in Neovim on Arch</span>
+      <span>© <span id="year"></span> Matteo Babini · <span data-i18n="footer.built">built in Neovim on Arch</span></span>
     </div>
   </footer>
 
   <script src="js/projects.js"></script>
+  <script src="js/i18n.js"></script>
   <script src="js/cases.js"></script>
   <script src="js/main.js"></script>
   <script src="js/scrollfx.js"></script>

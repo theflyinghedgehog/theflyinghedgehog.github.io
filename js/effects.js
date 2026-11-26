@@ -53,7 +53,12 @@
     el.setAttribute("aria-label", el.textContent);
     const settle = [...final].map((_, i) => 120 + (i / final.length) * 500 + Math.random() * 200);
     const t0 = performance.now();
+    let last = null;
     (function frame(now) {
+      if (last !== null && node.textContent !== last) {
+        el.removeAttribute("aria-label");
+        return;
+      }
       const t = now - t0;
       let out = "";
       let done = true;
@@ -65,6 +70,7 @@
         }
       }
       node.textContent = out;
+      last = out;
       if (!done) requestAnimationFrame(frame);
       else el.removeAttribute("aria-label");
     })(t0);

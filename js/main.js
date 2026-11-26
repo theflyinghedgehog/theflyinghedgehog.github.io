@@ -281,7 +281,7 @@
       });
     }, { rootMargin: "-45% 0px -50% 0px" });
 
-    ["home", "about", "projects", "github", "contact"].forEach((id) => {
+    ["home", "about", "case-studies", "projects", "github", "contact"].forEach((id) => {
       observer.observe(document.getElementById(id));
     });
   }
@@ -301,7 +301,7 @@
     setStagger(document.getElementById("inventory"));
 
     const targets = document.querySelectorAll(
-      ".section:not(#home) .screen, .section-head, #project-grid"
+      ".section:not(#home) .screen, .section-head, #project-grid, #case-grid"
     );
     if (!("IntersectionObserver" in window)) return;
 

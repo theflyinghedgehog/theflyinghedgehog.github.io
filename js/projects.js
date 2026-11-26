@@ -2,7 +2,9 @@ const SITE = {
   github: "theflyinghedgehog",
   email: "msttro.babini@gmail.com",
 
-  hideRepos: [],
+  hideRepos: ["concept-designs"],
+
+  caseStudies: "https://theflyinghedgehog.github.io/concept-designs/",
 
   skills: [
     "UI/UX design",

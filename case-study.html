@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#292c3c">
+  <title>Case study · Matteo Babini</title>
+  <meta name="description" content="A design case study by Matteo Babini: the problem, the idea and the screens.">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;600&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="study-page">
+  <nav class="topbar" aria-label="Site">
+    <div class="container">
+      <a class="topbar-user module" href="index.html" aria-label="matte@arch, back to the home page">
+        <svg class="mb-logo" viewBox="0 0 11 11" aria-hidden="true">
+          <rect width="11" height="11" rx="2.5" fill="#8caaee"/>
+          <g fill="#232634">
+            <rect x="1" y="3" width="1" height="5"/>
+            <rect x="2" y="4" width="1" height="1"/>
+            <rect x="3" y="5" width="1" height="1"/>
+            <rect x="4" y="4" width="1" height="1"/>
+            <rect x="5" y="3" width="1" height="5"/>
+            <rect x="7" y="3" width="1" height="5"/>
+            <rect x="8" y="3" width="1" height="1"/>
+            <rect x="8" y="5" width="1" height="1"/>
+            <rect x="8" y="7" width="1" height="1"/>
+            <rect x="9" y="4" width="1" height="1"/>
+            <rect x="9" y="6" width="1" height="1"/>
+          </g>
+        </svg>
+        <span class="topbar-user-name"><b>matte</b>@arch</span>
+      </a>
+      <a class="study-back module" href="index.html#case-studies">cd ../case-studies</a>
+    </div>
+  </nav>
+
+  <main id="study" aria-live="polite">
+    <section class="section">
+      <div class="container screen">
+        <p class="prompt"><span>~</span> $ cat README.md<i class="cursor" aria-hidden="true"></i></p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <span>© <span id="year"></span> Matteo Babini · built in Neovim on Arch</span>
+    </div>
+  </footer>
+
+  <script src="js/projects.js"></script>
+  <script src="js/cases.js"></script>
+  <script src="js/case-study.js"></script>
+</body>
+</html>

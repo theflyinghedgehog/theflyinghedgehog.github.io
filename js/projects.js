@@ -4,7 +4,7 @@ const SITE = {
 
   hideRepos: ["concept-designs"],
 
-  caseStudies: "https://theflyinghedgehog.github.io/concept-designs/",
+  caseStudies: "https://raw.githubusercontent.com/theflyinghedgehog/concept-designs/main/",
 
   skills: [
     "UI/UX design",
